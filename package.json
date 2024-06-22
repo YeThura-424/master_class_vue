@@ -11,7 +11,9 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "superbase:init": "supabase init"
+    "supabase:init": "supabase init",
+    "supabase:login": "supabase login",
+    "supabase:link": "supabase link --project-ref bhmkxppanyetkvgzvdta"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",
