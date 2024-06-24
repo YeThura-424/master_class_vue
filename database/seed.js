@@ -8,7 +8,7 @@ const supabase = createClient(process.env.VITE_SUPERBASE_URL, process.env.SERVIC
 const seedProjects = async (entry) => {
   const projects = []
   for (let i = 0; i < entry; i++) {
-    const name = faker.lorem.word(3)
+    const name = faker.lorem.words(3)
     projects.push({
       name: name,
       slug: name.toLocaleLowerCase().replace(/ /g, '-'),
