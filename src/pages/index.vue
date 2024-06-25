@@ -1,4 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { supabase } from '@/lib/superbaseClient'
+
+// const getProjects = async () => {}
+// IIFE => immediately invoked function expression
+;(async () => {
+  const { data, error } = await supabase.from('projects').select()
+
+  if (error) console.log(error)
+
+  console.log('Projects', data)
+})()
+</script>
 
 <template>
   <div>
