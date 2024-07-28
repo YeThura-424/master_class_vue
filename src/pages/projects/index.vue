@@ -2,7 +2,7 @@
 import { supabase } from '@/lib/superbaseClient'
 import { ref } from 'vue'
 
-const projects = ref()
+const projects = ref<any[] | null>(null)
 // const getProjects = async () => {}
 // IIFE => immediately invoked function expression
 ;(async () => {
