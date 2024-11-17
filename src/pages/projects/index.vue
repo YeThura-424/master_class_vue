@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { supabase } from '@/lib/superbaseClient'
 import { ref } from 'vue'
-
-const projects = ref<any[] | null>(null)
+import type { Tables } from '../../../database/types'
+const projects = ref<Tables<'projects'>[] | null>(null)
 // const getProjects = async () => {}
 // IIFE => immediately invoked function expression
 ;(async () => {
