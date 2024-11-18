@@ -15,7 +15,7 @@ const tasks = ref<Tables<'tasks'>[] | null>(null)
 
 <template>
   <div>
-    <h1>Projects Page</h1>
+    <h1>Projects Tasks Page</h1>
     <pre>{{ tasks }}</pre>
     <RouterLink to="/">Home</RouterLink>
   </div>
