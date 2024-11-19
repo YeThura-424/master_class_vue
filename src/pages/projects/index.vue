@@ -18,6 +18,7 @@ const projects = ref<Tables<'projects'>[] | null>(null)
 <template>
   <div>
     <h1>Projects Page</h1>
+    <iconify-icon icon="lucide:search"></iconify-icon>
     <pre>{{ projects }}</pre>
     <RouterLink to="/">Home</RouterLink>
   </div>
