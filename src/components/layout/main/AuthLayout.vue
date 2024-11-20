@@ -11,7 +11,7 @@ import SideBar from '@/components/layout/SideBar.vue'
       <div class="flex items-center">
         <h1 class="text-lg font-semibold md:text-2xl">Page Title</h1>
       </div>
-      <slto />
+      <slot />
     </main>
   </div>
 </template>
