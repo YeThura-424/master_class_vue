@@ -12,21 +12,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   css: {
     postcss: {
-      plugins: [
-        tailwind(),
-        autoprefixer(),
-        AutoImport({
-          include: [
-            /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-            /\.vue$/,
-            /\.vue\?vue/, // .vue
-            /\.md$/ // .md
-          ],
-          imports: ['vue', 'vue-router'],
-          dts: true,
-          viteOptimizeDeps: true
-        })
-      ]
+      plugins: [tailwind(), autoprefixer()]
     }
   },
   plugins: [
@@ -37,6 +23,17 @@ export default defineConfig({
           isCustomElement: (element) => element.startsWith('iconify-icon')
         }
       }
+    }),
+    AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+        /\.md$/ // .md
+      ],
+      imports: ['vue', 'vue-router'],
+      dts: true,
+      viteOptimizeDeps: true
     })
   ],
   resolve: {
