@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import VueRouter from 'unplugin-vue-router/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
@@ -11,7 +12,13 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   css: {
     postcss: {
-      plugins: [tailwind(), autoprefixer()]
+      plugins: [
+        tailwind(),
+        autoprefixer(),
+        AutoImport({
+          /* options */
+        })
+      ]
     }
   },
   plugins: [
