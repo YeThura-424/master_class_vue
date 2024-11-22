@@ -4,16 +4,17 @@ import type { Tables } from '../../../database/types'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
 const projects = ref<Tables<'projects'>[] | null>(null)
-// const getProjects = async () => {}
-// IIFE => immediately invoked function expression
-;(async () => {
+
+const fetchProject = async () => {
   const { data, error } = await supabase.from('projects').select()
 
   if (error) console.log(error)
 
   projects.value = data
   console.log('Projects', projects)
-})()
+}
+
+await fetchProject()
 
 const columns: ColumnDef<Tables<'projects'>>[] = [
   {
