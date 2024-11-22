@@ -3,7 +3,10 @@ import { supabase } from '@/lib/superbaseClient'
 import type { Tables } from '../../../database/types'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
+import { usePageStore } from '@/stores/page'
 const projects = ref<Tables<'projects'>[] | null>(null)
+
+usePageStore().pageData.title = 'Projects'
 
 const fetchProject = async () => {
   const { data, error } = await supabase.from('projects').select()
