@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { projectsQuery } from '@/utils/supaQueries'
 import type { projectsType } from '@/utils/supaQueries'
-import { columns } from '@/utils/tableColumns/taskColumns'
+import { columns } from '@/utils/tableColumns/projectsColumns'
 
 const projects = ref<projectsType | null>(null)
 
