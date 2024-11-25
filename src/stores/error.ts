@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 
 export const useErrorStore = defineStore('error-store', () => {
   const activeError = ref<null | CustomeError | ExtendPostgrestError>(null)
-
+  const isCustomeError = ref(false)
   const setError = ({
     error,
     customeCode
@@ -12,6 +12,8 @@ export const useErrorStore = defineStore('error-store', () => {
     error: string | PostgrestError | Error
     customeCode?: number
   }) => {
+    if (typeof error === 'string') isCustomeError.value = true
+
     if (typeof error === 'string' || error instanceof Error) {
       activeError.value = typeof error === 'string' ? Error(error) : error
       activeError.value.customeCode = customeCode || 500
@@ -22,8 +24,15 @@ export const useErrorStore = defineStore('error-store', () => {
     activeError.value.statusCode = customeCode || 500
   }
 
+  const clearError = () => {
+    activeError.value = null
+    isCustomeError.value = false
+  }
+
   return {
     activeError,
-    setError
+    setError,
+    isCustomeError,
+    clearError
   }
 })

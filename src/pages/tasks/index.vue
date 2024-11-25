@@ -15,7 +15,6 @@ const fetchTasks = async () => {
 }
 
 await fetchTasks()
-helloo
 </script>
 
 <template>
