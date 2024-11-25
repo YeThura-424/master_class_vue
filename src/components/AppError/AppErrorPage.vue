@@ -7,11 +7,24 @@ const error = ref(errorStore.activeError)
 
 const message = ref('')
 const customeCode = ref(0)
+const detail = ref('')
+const code = ref('')
+const hint = ref('')
+const statusCode = ref(0)
 
-if (error.value) {
+if (error.value && !('code' in error.value)) {
   message.value = error.value.message
   customeCode.value = error.value.customeCode ?? 0
 }
+
+if (error.value && 'code' in error.value) {
+  message.value = error.value.message
+  detail.value = error.value.details
+  code.value = error.value.code
+  hint.value = error.value.hint
+  statusCode.value = error.value.statusCode ?? 0
+}
+
 router.beforeEach(() => {
   errorStore.activeError = null
 })
@@ -21,8 +34,11 @@ router.beforeEach(() => {
   <section class="error">
     <div>
       <iconify-icon icon="lucide:triangle-alert" class="error__icon" />
-      <h1 class="error__code">{{ customeCode }}</h1>
+      <h1 class="error__code">{{ customeCode || code }}</h1>
+      <p class="error__code">Status Code:{{ statusCode }}</p>
       <p class="error__msg">{{ message }}</p>
+      <p v-if="hint">{{ hint }}</p>
+      <p v-if="detail">{{ detail }}</p>
       <div class="error-footer">
         <p class="error-footer__text">You'll find lots to explore on the home page.</p>
         <RouterLink to="/">
