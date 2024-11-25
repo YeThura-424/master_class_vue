@@ -9,17 +9,17 @@ export const useErrorStore = defineStore('error-store', () => {
     error,
     customeCode
   }: {
-    error: string | PostgrestError
-    customeCode: number
+    error: string | PostgrestError | Error
+    customeCode?: number
   }) => {
-    if (typeof error === 'string') {
-      activeError.value = Error(error)
-      activeError.value.customeCode = customeCode
+    if (typeof error === 'string' || error instanceof Error) {
+      activeError.value = typeof error === 'string' ? Error(error) : error
+      activeError.value.customeCode = customeCode || 500
       return
     }
 
     activeError.value = error
-    activeError.value.statusCode = customeCode
+    activeError.value.statusCode = customeCode || 500
   }
 
   return {
