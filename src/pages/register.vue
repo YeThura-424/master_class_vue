@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/superbaseClient'
+import { register } from '@/utils/supaAuth'
 
 const formData = reactive({
   username: '',
@@ -13,24 +13,9 @@ const formData = reactive({
 const router = useRouter()
 
 const signup = async () => {
-  const { data, error } = await supabase.auth.signUp({
-    email: formData.email,
-    password: formData.password
-  })
+  const isRegistered = await register(formData)
 
-  if (error) return console.log(error)
-
-  if (data.user) {
-    const { error } = await supabase.from('profiles').insert({
-      id: data.user.id,
-      username: formData.username,
-      full_name: formData.firstname.concat(' ', formData.lastname)
-    })
-
-    if (error) console.log('Profile err: ', error)
-  }
-
-  router.push('/')
+  if (isRegistered) router.push('/')
 }
 </script>
 

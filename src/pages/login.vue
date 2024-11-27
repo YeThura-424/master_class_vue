@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/superbaseClient'
+import { login } from '@/utils/supaAuth'
 
 const formData = reactive({
   email: '',
@@ -9,14 +9,9 @@ const formData = reactive({
 const router = useRouter()
 
 const signin = async () => {
-  const { error } = await supabase.auth.signInWithPassword({
-    email: formData.email,
-    password: formData.password
-  })
+  const isLoggedIn = await login(formData)
 
-  if (error) return console.log(error)
-
-  router.push('/')
+  if (isLoggedIn) router.push('/')
 }
 </script>
 
