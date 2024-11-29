@@ -18,7 +18,7 @@
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SideBarLinks :links="accountLinks" />
+        <SideBarLinks :links="accountLinks" @clickAction="handleAction" />
       </div>
     </nav>
   </aside>
@@ -59,4 +59,8 @@ const accountLinks = [
     icon: 'lucide:log-out'
   }
 ]
+
+const handleAction = () => {
+  console.log('action triggered')
+}
 </script>

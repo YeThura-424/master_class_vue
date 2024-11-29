@@ -9,7 +9,7 @@
       <iconify-icon :icon="link.icon"></iconify-icon>
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </RouterLink>
-    <div v-else class="nav-link cursor-pointer">
+    <div v-else class="nav-link cursor-pointer" @click="forwardAction">
       <iconify-icon :icon="link.icon"></iconify-icon>
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </div>
@@ -26,6 +26,12 @@ interface LinkProp {
 defineProps<{
   links: LinkProp[]
 }>()
+
+const emits = defineEmits(['clickAction'])
+
+const forwardAction = () => {
+  emits('clickAction')
+}
 </script>
 
 <style scoped>
