@@ -27,10 +27,12 @@ defineProps<{
   links: LinkProp[]
 }>()
 
-const emits = defineEmits(['clickAction'])
+const emits = defineEmits<{
+  clickAction: [string]
+}>()
 
 const forwardAction = () => {
-  emits('clickAction')
+  emits('clickAction', 'hello')
 }
 </script>
 

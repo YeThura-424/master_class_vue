@@ -60,7 +60,7 @@ const accountLinks = [
   }
 ]
 
-const handleAction = () => {
-  console.log('action triggered')
+const handleAction = (payload: string) => {
+  console.log('action triggered', payload)
 }
 </script>
