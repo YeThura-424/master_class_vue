@@ -59,13 +59,15 @@ const accountLinks = [
     icon: 'lucide:log-out'
   }
 ]
-
+const router = useRouter()
 const handleAction = async (payload: string) => {
   if (payload == 'Sign Out') {
     // need to import in this function
     // မဟုတ်ရင် pinia create မဖြစ်ခင် store ကိုယူသုံးထားတာဆိုတော့ error တက်မာ
     const { logout } = await import('@/utils/supaAuth')
-    await logout()
+    const isLoggedOut = await logout()
+
+    if (isLoggedOut) router.push('/login')
   }
 }
 </script>
