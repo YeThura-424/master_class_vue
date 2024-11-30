@@ -60,7 +60,10 @@ const accountLinks = [
   }
 ]
 
-const handleAction = (payload: string) => {
-  console.log('action triggered', payload)
+const handleAction = async (payload: string) => {
+  if (payload == 'Sign Out') {
+    const { logout } = await import('@/utils/supaAuth')
+    await logout()
+  }
 }
 </script>

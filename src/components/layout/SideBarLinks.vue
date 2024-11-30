@@ -9,7 +9,7 @@
       <iconify-icon :icon="link.icon"></iconify-icon>
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </RouterLink>
-    <div v-else class="nav-link cursor-pointer" @click="forwardAction">
+    <div v-else class="nav-link cursor-pointer" @click="forwardAction(link.title)">
       <iconify-icon :icon="link.icon"></iconify-icon>
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </div>
@@ -31,8 +31,8 @@ const emits = defineEmits<{
   clickAction: [string]
 }>()
 
-const forwardAction = () => {
-  emits('clickAction', 'hello')
+const forwardAction = (payload: string) => {
+  emits('clickAction', payload)
 }
 </script>
 
