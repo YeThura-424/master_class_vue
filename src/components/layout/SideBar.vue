@@ -62,6 +62,8 @@ const accountLinks = [
 
 const handleAction = async (payload: string) => {
   if (payload == 'Sign Out') {
+    // need to import in this function
+    // မဟုတ်ရင် pinia create မဖြစ်ခင် store ကိုယူသုံးထားတာဆိုတော့ error တက်မာ
     const { logout } = await import('@/utils/supaAuth')
     await logout()
   }
