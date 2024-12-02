@@ -7,13 +7,13 @@ const formData = reactive({
 })
 
 const router = useRouter()
-const _error = ref('')
+const { serverError, handelServerError } = useFormError()
 const signin = async () => {
   const { error } = await login(formData)
 
-  if (!error) router.push('/')
+  if (!error) return router.push('/')
 
-  _error.value = error.message
+  handelServerError(error)
 }
 </script>
 
@@ -38,7 +38,7 @@ const signin = async () => {
               type="email"
               placeholder="johndoe19@example.com"
               required
-              :class="{ 'border-red-500': _error }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
           <div class="grid gap-2">
@@ -52,11 +52,11 @@ const signin = async () => {
               type="password"
               autocomplete
               required
-              :class="{ 'border-red-500': _error }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
-          <ul class="text-sm text-left text-red-500" v-if="_error">
-            <li class="list-disc">{{ _error }}</li>
+          <ul class="text-sm text-left text-red-500" v-if="serverError">
+            <li class="list-disc">{{ serverError }}</li>
           </ul>
           <Button type="submit" class="w-full"> Login </Button>
         </form>
