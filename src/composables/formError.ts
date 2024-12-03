@@ -28,6 +28,7 @@ export const useFormError = () => {
   return {
     serverError,
     handelServerError,
+    realTimeError,
     handelLoginForm
   }
 }
