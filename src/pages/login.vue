@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { login } from '@/utils/supaAuth'
+import { watchDebounced } from '@vueuse/core'
 
 const formData = reactive({
   email: '',
@@ -15,6 +16,14 @@ const signin = async () => {
 
   handelServerError(error)
 }
+
+watchDebounced(
+  formData,
+  () => {
+    handelLoginForm(formData)
+  },
+  { debounce: 1000, deep: true }
+)
 </script>
 
 <template>
@@ -39,7 +48,6 @@ const signin = async () => {
               placeholder="johndoe19@example.com"
               required
               :class="{ 'border-red-500': serverError }"
-              @change="handelLoginForm(formData)"
             />
             <ul class="text-sm text-left text-red-500" v-if="realTimeError?.email.length">
               <li v-for="error in realTimeError.email" :key="error" class="list-disc">
