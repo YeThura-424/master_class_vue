@@ -1,9 +1,14 @@
 import type { Login } from '@/types/Auth'
 import type { AuthError } from '@supabase/supabase-js'
 
+// K for key and T for type
+type FormErrors<T> = {
+  [K in keyof T]: string[]
+}
+
 export const useFormError = () => {
   const serverError = ref('')
-  const realTimeError = ref()
+  const realTimeError = ref<FormErrors<Login>>()
 
   const handelServerError = (error: AuthError) => {
     serverError.value =
