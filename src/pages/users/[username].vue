@@ -11,7 +11,7 @@ const getTasks = async () => {
     value: username
   })
 
-  if (error) useErrorStore().setError({ error, customCode: status })
+  if (error) useErrorStore().setError({ error, customeCode: status })
 
   profile.value = data
 }
