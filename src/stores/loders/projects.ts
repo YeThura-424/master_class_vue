@@ -2,20 +2,21 @@ import { type projectsType } from '@/utils/supaQueries'
 import { projectsQuery } from '@/utils/supaQueries'
 import { useMemoize } from '@vueuse/core'
 export const useProjectStore = defineStore('projects-store', () => {
-  const projects = ref<projectsType | null>(null)
+  const projects = ref<projectsType>([])
 
   const loadedProjects = useMemoize(async (key: string) => await projectsQuery)
 
   const validateCache = () => {
     // logic for deleting cached data if something in database has changed
     if (projects.value?.length) {
-      projectsQuery.then(({ data }) => {
+      projectsQuery.then(({ data, error }) => {
         if (JSON.stringify(projects.value) === JSON.stringify(data)) {
-          console.log('Cached and fresh data matched!')
           return
         } else {
-          console.log('Something has changed!!')
           loadedProjects.delete('projects')
+          if (!error && data) {
+            projects.value = data
+          }
         }
       })
     }
@@ -29,7 +30,7 @@ export const useProjectStore = defineStore('projects-store', () => {
 
     if (error) useErrorStore().setError({ error, customeCode: status })
 
-    projects.value = data
+    if (data) projects.value = data
   }
 
   return {
