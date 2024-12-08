@@ -48,6 +48,14 @@ export const taskQuery = (id: string) =>
 
 export type taskType = QueryData<ReturnType<typeof taskQuery>>
 
+// profile query
 export const profileQuery = ({ column, value }: { column: string; value: string }) => {
   return supabase.from('profiles').select().eq(column, value).single()
 }
+
+// collaborator query from each projects
+export const projectCollabQuery = (projIds: string[]) => {
+  return supabase.from('profiles').select('username, avatar_url, id, full_name').in('id', projIds)
+}
+
+export type Collabs = QueryData<ReturnType<typeof projectCollabQuery>>
