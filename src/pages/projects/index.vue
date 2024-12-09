@@ -8,11 +8,14 @@ const { fetchProject } = projectsLoder
 
 await fetchProject()
 
-const { getProfileByIds } = useCollabs()
+// const { getProfileByIds } = useCollabs()
 
-const test = getProfileByIds(projects.value[0].collaborators)
+// const test = getProfileByIds(projects.value[0].collaborators)
+const { getGroupedCollabs, groupedCollabs } = useCollabs()
 
-console.log(test, 'test data')
+await getGroupedCollabs(projects.value)
+
+console.log(groupedCollabs, 'test data')
 </script>
 
 <template>
