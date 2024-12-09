@@ -7,6 +7,12 @@ const { projects } = storeToRefs(projectsLoder)
 const { fetchProject } = projectsLoder
 
 await fetchProject()
+
+const { getProfileByIds } = useCollabs()
+
+const test = getProfileByIds(projects.value[0].collaborators)
+
+console.log(test, 'test data')
 </script>
 
 <template>
