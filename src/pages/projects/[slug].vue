@@ -19,7 +19,9 @@ await fetchSingleProject(slug)
   <Table v-if="singleProject">
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell>{{ singleProject.name }} </TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="singleProject.name" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
