@@ -5,9 +5,9 @@ usePageStore().pageData.title = 'Projects'
 
 const projectsLoader = useProjectStore()
 const { projects } = storeToRefs(projectsLoader)
-const { getProjects } = projectsLoader
+const { fetchProject } = projectsLoader
 
-await getProjects()
+await fetchProject()
 
 const { getGroupedCollabs, groupedCollabs } = useCollabs()
 
