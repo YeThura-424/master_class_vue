@@ -2,9 +2,11 @@
 import { projectQuery } from '@/utils/supaQueries'
 import { type projectType } from '@/utils/supaQueries'
 
-const route = useRoute('/projects/[slug]')
+const { slug } = useRoute('/projects/[slug]').params
 
-const project = ref<projectType | null>(null)
+const projectLoader = useProjectStore()
+const { project } = storeToRefs(projectLoader)
+const { fetchSingleProject } = projectLoader
 
 watch(
   () => project.value?.name,
@@ -13,13 +15,7 @@ watch(
   }
 )
 
-const fetchProject = async () => {
-  const { data, error, status } = await projectQuery(route.params.slug)
-  if (error) useErrorStore().setError({ error, customeCode: status })
-
-  project.value = data
-}
-await fetchProject()
+await fetchSingleProject(slug)
 </script>
 
 <template>
