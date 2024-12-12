@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { projectQuery } from '@/utils/supaQueries'
-import { type projectType } from '@/utils/supaQueries'
-
 const { slug } = useRoute('/projects/[slug]').params
 
 const projectLoader = useProjectStore()
-const { project } = storeToRefs(projectLoader)
+const { singleProject } = storeToRefs(projectLoader)
 const { fetchSingleProject } = projectLoader
 
 watch(
-  () => project.value?.name,
+  () => singleProject.value?.name,
   (newVal) => {
     usePageStore().pageData.title = `Project: ${newVal || ''}`
   }
@@ -19,20 +16,20 @@ await fetchSingleProject(slug)
 </script>
 
 <template>
-  <Table v-if="project">
+  <Table v-if="singleProject">
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell>{{ project.name }} </TableCell>
+      <TableCell>{{ singleProject.name }} </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ project.description }}
+        {{ singleProject.description }}
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
-      <TableCell>{{ project.status }}</TableCell>
+      <TableCell>{{ singleProject.status }}</TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Collaborators </TableHead>
@@ -40,7 +37,7 @@ await fetchSingleProject(slug)
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in project.collaborators"
+            v-for="collab in singleProject.collaborators"
             :key="collab"
           >
             <RouterLink class="w-full h-full flex items-center justify-center" to="">
@@ -53,7 +50,7 @@ await fetchSingleProject(slug)
     </TableRow>
   </Table>
 
-  <section v-if="project" class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow">
+  <section v-if="singleProject" class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow">
     <div class="flex-1">
       <h2>Tasks</h2>
       <div class="table-container">
@@ -66,7 +63,7 @@ await fetchSingleProject(slug)
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow v-for="task in project.tasks" :key="task.id">
+            <TableRow v-for="task in singleProject.tasks" :key="task.id">
               <TableCell> {{ task.name }} </TableCell>
               <TableCell> {{ task.status }} </TableCell>
               <TableCell> {{ task.due_date }} </TableCell>
