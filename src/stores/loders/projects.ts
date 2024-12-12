@@ -39,6 +39,7 @@ export const useProjectStore = defineStore('projects-store', () => {
 
   const fetchSingleProject = async (slug: string) => {
     const { data, error, status } = await loadedSingleProject(slug)
+
     if (error) useErrorStore().setError({ error, customeCode: status })
 
     if (data) singleProject.value = data
@@ -47,6 +48,7 @@ export const useProjectStore = defineStore('projects-store', () => {
   return {
     projects,
     fetchProject,
+    singleProject,
     fetchSingleProject
   }
 })
