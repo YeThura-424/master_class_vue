@@ -1,25 +1,34 @@
-import { projectQuery } from '@/utils/supaQueries'
 import type { projectsType, projectType } from '@/utils/supaQueries'
-import { projectsQuery } from '@/utils/supaQueries'
+import { projectsQuery, projectQuery } from '@/utils/supaQueries'
 import { useMemoize } from '@vueuse/core'
 
 export const useProjectStore = defineStore('projects-store', () => {
-  const projects = ref<projectsType>([])
-  const singleProject = ref<projectType>()
+  const projects = ref<projectsType | null>(null)
+  const singleProject = ref<projectType | null>(null)
 
   const loadedProjects = useMemoize(async (key: string) => await projectsQuery)
   const loadedSingleProject = useMemoize(async (slug: string) => await projectQuery(slug))
 
-  const validateCache = () => {
+  interface ValidateCacheParams {
+    ref: typeof projects | typeof singleProject
+    query: typeof projectsQuery | typeof projectQuery
+    key: string
+    loader: typeof loadedProjects | typeof loadedSingleProject
+  }
+
+  const validateCache = ({ ref, query, key, loader }: ValidateCacheParams) => {
     // logic for deleting cached data if something in database has changed
-    if (projects.value?.length) {
-      projectsQuery.then(({ data, error }) => {
-        if (JSON.stringify(projects.value) === JSON.stringify(data)) {
+
+    const finalQuery = typeof query === 'function' ? query(key) : query
+
+    if (ref.value) {
+      finalQuery.then(({ data, error }) => {
+        if (JSON.stringify(ref.value) === JSON.stringify(data)) {
           return
         } else {
-          loadedProjects.delete('projects')
+          loader.delete(key)
           if (!error && data) {
-            projects.value = data
+            ref.value = data
           }
         }
       })
@@ -27,8 +36,14 @@ export const useProjectStore = defineStore('projects-store', () => {
   }
 
   const fetchProject = async () => {
-    // if (projects.value?.length) return
-    validateCache()
+    projects.value = null
+
+    validateCache({
+      ref: projects,
+      query: projectsQuery,
+      key: 'projects',
+      loader: loadedProjects
+    })
 
     const { data, error, status } = await loadedProjects('projects')
 
@@ -38,11 +53,20 @@ export const useProjectStore = defineStore('projects-store', () => {
   }
 
   const fetchSingleProject = async (slug: string) => {
+    singleProject.value = null
+
     const { data, error, status } = await loadedSingleProject(slug)
 
     if (error) useErrorStore().setError({ error, customeCode: status })
 
     if (data) singleProject.value = data
+
+    validateCache({
+      ref: singleProject,
+      query: projectQuery,
+      key: slug,
+      loader: loadedSingleProject
+    })
   }
 
   return {
