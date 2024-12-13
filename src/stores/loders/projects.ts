@@ -1,5 +1,5 @@
 import type { projectsType, projectType } from '@/utils/supaQueries'
-import { projectsQuery, projectQuery } from '@/utils/supaQueries'
+import { projectsQuery, projectQuery, projectUpdateQuery } from '@/utils/supaQueries'
 import { useMemoize } from '@vueuse/core'
 
 export const useProjectStore = defineStore('projects-store', () => {
@@ -69,10 +69,20 @@ export const useProjectStore = defineStore('projects-store', () => {
     })
   }
 
+  const updateProject = async () => {
+    if (!singleProject.value) return
+
+    //destructuring tasks and id from the projects value (tasks and id will not be updated along with project)
+    const { tasks, id, ...projectProperties } = singleProject.value
+
+    await projectUpdateQuery(projectProperties, singleProject.value.id)
+  }
+
   return {
     projects,
     fetchProject,
     singleProject,
-    fetchSingleProject
+    fetchSingleProject,
+    updateProject
   }
 })
