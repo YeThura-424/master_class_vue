@@ -3,7 +3,7 @@ const { slug } = useRoute('/projects/[slug]').params
 
 const projectLoader = useProjectStore()
 const { singleProject } = storeToRefs(projectLoader)
-const { fetchSingleProject } = projectLoader
+const { fetchSingleProject, updateProject } = projectLoader
 
 watch(
   () => singleProject.value?.name,
@@ -20,7 +20,7 @@ await fetchSingleProject(slug)
     <TableRow>
       <TableHead> Name </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.name" />
+        <AppInPlaceEditText v-model="singleProject.name" @commit="updateProject" />
       </TableCell>
     </TableRow>
     <TableRow>
