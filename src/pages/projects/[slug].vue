@@ -26,12 +26,14 @@ await fetchSingleProject(slug)
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ singleProject.description }}
+        <AppInPlaceEditText v-model="singleProject.description" @commit="updateProject" />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
-      <TableCell>{{ singleProject.status }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus v-model="singleProject.status" @commit="updateProject" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Collaborators </TableHead>
