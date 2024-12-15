@@ -1,6 +1,7 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import type { tasksType } from '../supaQueries'
 import { RouterLink } from 'vue-router'
+import AppInPlaceEditStatus from '@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue'
 
 export const columns: ColumnDef<tasksType[0]>[] = [
   {
@@ -21,7 +22,11 @@ export const columns: ColumnDef<tasksType[0]>[] = [
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'status'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('status'))
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        h(AppInPlaceEditStatus, { modelalue: row.original.status, readonly: true })
+      )
     }
   },
   {

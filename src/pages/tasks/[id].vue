@@ -44,7 +44,9 @@ await fetchTask()
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
-      <TableCell>{{ task.status }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus :modelValue="task.status" readonly />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Collaborators </TableHead>
