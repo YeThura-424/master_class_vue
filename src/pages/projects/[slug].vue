@@ -13,6 +13,10 @@ watch(
 )
 
 await fetchSingleProject(slug)
+const { getProfileByIds } = useCollabs()
+const collabs = singleProject.value?.collaborators
+  ? await getProfileByIds(singleProject.value?.collaborators)
+  : []
 </script>
 
 <template>
@@ -41,11 +45,14 @@ await fetchSingleProject(slug)
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in singleProject.collaborators"
-            :key="collab"
+            v-for="collab in collabs"
+            :key="collab.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
-              <AvatarImage src="" alt="" />
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              :to="{ name: '/users/[username]', params: { username: collab.username } }"
+            >
+              <AvatarImage :src="collab.avatar_url || ''" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
