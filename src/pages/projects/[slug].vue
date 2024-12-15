@@ -30,7 +30,7 @@ const collabs = singleProject.value?.collaborators
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        <AppInPlaceEditText v-model="singleProject.description" @commit="updateProject" />
+        <AppInPlaceEditTextarea v-model="singleProject.description" @commit="updateProject" />
       </TableCell>
     </TableRow>
     <TableRow>
