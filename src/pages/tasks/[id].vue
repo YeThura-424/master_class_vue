@@ -3,35 +3,31 @@ import { taskQuery } from '@/utils/supaQueries'
 import { type taskType } from '@/utils/supaQueries'
 
 const route = useRoute('/tasks/[id]')
-const task = ref<taskType | null>(null)
+
+const taskLoader = useTaskStore()
+const { singleTask } = storeToRefs(taskLoader)
+const { fetchSingleTask } = taskLoader
+
+await fetchSingleTask(route.params.id)
 
 watch(
-  () => task.value?.name,
+  () => singleTask.value?.name,
   (newVal) => {
     usePageStore().pageData.title = `Task: ${newVal || ''}`
   }
 )
-const fetchTask = async () => {
-  const { data, error, status } = await taskQuery(route.params.id)
-
-  if (error) useErrorStore().setError({ error, customeCode: status })
-
-  task.value = data
-}
-
-await fetchTask()
 </script>
 
 <template>
-  <Table v-if="task">
+  <Table v-if="singleTask">
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> {{ task.name }} </TableCell>
+      <TableCell> {{ singleTask.name }} </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ task.description }}
+        {{ singleTask.description }}
       </TableCell>
     </TableRow>
     <TableRow>
@@ -40,12 +36,12 @@ await fetchTask()
     </TableRow>
     <TableRow>
       <TableHead> Project </TableHead>
-      <TableCell> {{ task.projects?.name }} </TableCell>
+      <TableCell> {{ singleTask.projects?.name }} </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Status </TableHead>
       <TableCell>
-        <AppInPlaceEditStatus :modelValue="task.status" readonly />
+        <AppInPlaceEditStatus :modelValue="singleTask.status" readonly />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -54,7 +50,7 @@ await fetchTask()
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in task.collaborators"
+            v-for="collab in singleTask.collaborators"
             :key="collab"
           >
             <RouterLink class="w-full h-full flex items-center justify-center" to="">
