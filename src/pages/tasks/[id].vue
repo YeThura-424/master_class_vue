@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { taskQuery } from '@/utils/supaQueries'
-import { type taskType } from '@/utils/supaQueries'
-
 const route = useRoute('/tasks/[id]')
 
 const taskLoader = useTaskStore()
