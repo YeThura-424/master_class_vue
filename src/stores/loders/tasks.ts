@@ -40,7 +40,7 @@ export const useTaskStore = defineStore('task-store', () => {
       key: 'tasks',
       loader: loadedTasks
     })
-    const { data, error, status } = await tasksQuery
+    const { data, error, status } = await loadedTasks('tasks')
 
     if (error) useErrorStore().setError({ error, customeCode: status })
 
@@ -55,7 +55,7 @@ export const useTaskStore = defineStore('task-store', () => {
       loader: loadedSingleTask
     })
 
-    const { data, error, status } = await taskQuery(id)
+    const { data, error, status } = await loadedSingleTask(id)
 
     if (error) useErrorStore().setError({ error, customeCode: status })
 
