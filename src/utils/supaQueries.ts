@@ -53,6 +53,11 @@ export const taskQuery = (id: string) =>
 
 export type taskType = QueryData<ReturnType<typeof taskQuery>>
 
+// query for updating single task
+export const taskUpdateQuery = (updatedTask = {}, id: number) => {
+  return supabase.from('tasks').update(updatedTask).eq('id', id)
+}
+
 // profile query
 export const profileQuery = ({ column, value }: { column: string; value: string }) => {
   return supabase.from('profiles').select().eq(column, value).single()
