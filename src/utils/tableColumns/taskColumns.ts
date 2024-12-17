@@ -20,12 +20,12 @@ export const columns: ColumnDef<tasksType[0]>[] = [
   },
   {
     accessorKey: 'status',
-    header: () => h('div', { class: 'text-left' }, 'status'),
+    header: () => h('div', { class: 'text-left' }, 'Status'),
     cell: ({ row }) => {
       return h(
         'div',
         { class: 'text-left font-medium' },
-        h(AppInPlaceEditStatus, { modelalue: row.original.status, readonly: true })
+        h(AppInPlaceEditStatus, { modelValue: row.original.status, readonly: true })
       )
     }
   },

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import AppInPlaceEditText from '@/components/AppInPlaceEdit/AppInPlaceEditText.vue'
+
 const route = useRoute('/tasks/[id]')
 
 const taskLoader = useTaskStore()
 const { singleTask } = storeToRefs(taskLoader)
-const { fetchSingleTask } = taskLoader
+const { fetchSingleTask, updateTask } = taskLoader
 
 await fetchSingleTask(route.params.id)
 
@@ -19,12 +21,14 @@ watch(
   <Table v-if="singleTask">
     <TableRow>
       <TableHead> Name </TableHead>
-      <TableCell> {{ singleTask.name }} </TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="singleTask.name" @commit="updateTask" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        {{ singleTask.description }}
+        <AppInPlaceEditTextarea v-model="singleTask.description" @commit="updateTask" />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -38,7 +42,7 @@ watch(
     <TableRow>
       <TableHead> Status </TableHead>
       <TableCell>
-        <AppInPlaceEditStatus :modelValue="singleTask.status" readonly />
+        <AppInPlaceEditStatus v-model="singleTask.status" @commit="updateTask" />
       </TableCell>
     </TableRow>
     <TableRow>
