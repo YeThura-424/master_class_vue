@@ -15,6 +15,12 @@ watch(
     usePageStore().pageData.title = `Task: ${newVal || ''}`
   }
 )
+
+const { getProfileByIds } = useCollabs()
+
+const collabs = singleTask.value.collaborators
+  ? await getProfileByIds(singleTask.value.collaborators)
+  : []
 </script>
 
 <template>
@@ -51,11 +57,14 @@ watch(
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in singleTask.collaborators"
-            :key="collab"
+            v-for="collab in collabs"
+            :key="collab.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
-              <AvatarImage src="" alt="" />
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              :to="{ name: '/users/[username]', params: { username: collab.username } }"
+            >
+              <AvatarImage :src="collab.avatar_url || ''" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
