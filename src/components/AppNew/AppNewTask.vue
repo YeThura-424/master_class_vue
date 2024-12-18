@@ -1,14 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const sheetOpen = defineModel()
+</script>
 
 <template>
-  <Sheet>
+  <Sheet v-model:open="sheetOpen">
     <SheetContent>
       <SheetHeader>
         <SheetTitle>Are you absolutely sure?</SheetTitle>
-        <SheetDescription>
-          This action cannot be undone. This will permanently delete your account and remove your
-          data from our servers.
-        </SheetDescription>
+        <p>Contents</p>
       </SheetHeader>
     </SheetContent>
   </Sheet>
