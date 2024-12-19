@@ -8,6 +8,8 @@ const sheetOpen = defineModel()
       <SheetHeader>
         <SheetTitle>Are you absolutely sure?</SheetTitle>
         <p>Contents</p>
+
+        <FormKit type="text" />
       </SheetHeader>
     </SheetContent>
   </Sheet>

@@ -3,7 +3,7 @@ import 'iconify-icon'
 
 import { createApp } from 'vue'
 import { plugin } from '@formkit/vue'
-import config from '../formkit.config.ts'
+import config from '../formkit.config'
 
 import { createPinia } from 'pinia'
 
