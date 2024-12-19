@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import type { CreateNewTask } from '@/types/CreateForm'
+
 const sheetOpen = defineModel()
+
+const createTask = async (formData: CreateNewTask) => {
+  console.log(formData)
+}
 </script>
 
 <template>
@@ -7,7 +13,7 @@ const sheetOpen = defineModel()
     <SheetContent>
       <SheetHeader>
         <SheetTitle>Create New Task</SheetTitle>
-        <FormKit type="form" @submit="console.log('here')" submit-label="Create">
+        <FormKit type="form" @submit="createTask" submit-label="Create">
           <FormKit type="text" name="name" id="name" label="Name" placeholder="My new task" />
           <FormKit
             type="select"
