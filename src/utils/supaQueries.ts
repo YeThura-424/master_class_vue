@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/superbaseClient'
+import type { CreateNewTask } from '@/types/CreateForm'
 import type { QueryData } from '@supabase/supabase-js'
 
 // query for all tasks starts here
@@ -63,6 +64,7 @@ export const profileQuery = ({ column, value }: { column: string; value: string 
   return supabase.from('profiles').select().eq(column, value).single()
 }
 
+// to fetch all the profiles
 export const profilesQuery = supabase.from('profiles').select('id,full_name')
 
 // collaborator query from each projects
@@ -71,3 +73,7 @@ export const projectCollabQuery = (projIds: string[]) => {
 }
 
 export type Collabs = QueryData<ReturnType<typeof projectCollabQuery>>
+
+export const createNewTaskQuery = (newTask: CreateNewTask) => {
+  return supabase.from('tasks').insert(newTask)
+}

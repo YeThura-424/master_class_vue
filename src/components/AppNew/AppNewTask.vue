@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import type { CreateNewTask } from '@/types/CreateForm'
-import { profilesQuery, projectsQuery } from '@/utils/supaQueries'
+import { createNewTaskQuery, profilesQuery, projectsQuery } from '@/utils/supaQueries'
 
 const sheetOpen = defineModel()
 
+const { profile } = storeToRefs(useAuthStore())
+
 const createTask = async (formData: CreateNewTask) => {
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(console.log(formData))
-    }, 2000)
-  })
+  const task = {
+    ...formData,
+    collaborators: [profile.value!.id]
+  }
+
+  const { error } = await createNewTaskQuery(task)
+
+  if (error) {
+    console.log(error, 'Task creation error')
+  }
+
+  sheetOpen.value = false
 }
 
 type SelectOptions = { label: string; value: number | string }
@@ -61,16 +70,16 @@ getSelectOptions()
           <FormKit type="text" name="name" id="name" label="Name" placeholder="My new task" />
           <FormKit
             type="select"
-            name="for"
-            id="for"
-            label="For"
+            name="profile_id"
+            id="profile_id"
+            label="User"
             placeholder="Select a user"
             :options="selectOptions.profiles"
           />
           <FormKit
             type="select"
-            name="project"
-            id="project"
+            name="project_id"
+            id="project_id"
             label="Porject"
             placeholder="Select a project"
             :options="selectOptions.projects"
