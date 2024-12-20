@@ -7,10 +7,15 @@ onErrorCaptured((error) => {
 onMounted(() => {
   useAuthStore().trackAuthChange()
 })
+
+const AuthLayout = defineAsyncComponent(() => import('./components/layout/main/AuthLayout.vue'))
+const GuestLayout = defineAsyncComponent(() => import('./components/layout/main/GuestLayout.vue'))
+
+const { user } = storeToRefs(useAuthStore())
 </script>
 
 <template>
-  <AuthLayout>
+  <Component :is="user ? AuthLayout : GuestLayout">
     <AppErrorPage v-if="errorStore.activeError" />
     <RouterView v-else v-slot="{ Component, route }">
       <Suspense v-if="Component" :timeout="0">
@@ -20,5 +25,5 @@ onMounted(() => {
         </template>
       </Suspense>
     </RouterView>
-  </AuthLayout>
+  </Component>
 </template>
