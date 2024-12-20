@@ -59,6 +59,11 @@ export const taskUpdateQuery = (updatedTask = {}, id: number) => {
   return supabase.from('tasks').update(updatedTask).eq('id', id)
 }
 
+// query for deleting single task
+export const deleteTaskQuery = (id: number) => {
+  return supabase.from('tasks').delete().eq('id', id)
+}
+
 // profile query
 export const profileQuery = ({ column, value }: { column: string; value: string }) => {
   return supabase.from('profiles').select().eq(column, value).single()
