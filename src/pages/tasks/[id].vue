@@ -113,12 +113,14 @@ const handelTaskDelete = async () => {
       </TableRow>
     </Table>
     <Button @click="handelTaskDelete" class="self-end mt-2" variant="destructive">
-      <iconify-icon
-        v-if="taskLoading"
-        icon="lucide:loader-circle"
-        class="mr-1 animate-spin"
-      ></iconify-icon>
-      <iconify-icon v-else icon="lucide:trash-2" class="mr-1"></iconify-icon>
+      <Transition name="scale" mode="out-in">
+        <iconify-icon
+          v-if="taskLoading"
+          icon="lucide:loader-circle"
+          class="mr-1 animate-spin"
+        ></iconify-icon>
+        <iconify-icon v-else icon="lucide:trash-2" class="mr-1"></iconify-icon>
+      </Transition>
       Delete
     </Button>
   </div>
