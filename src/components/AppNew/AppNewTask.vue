@@ -67,7 +67,14 @@ getSelectOptions()
       <SheetHeader>
         <SheetTitle>Create New Task</SheetTitle>
         <FormKit type="form" @submit="createTask" submit-label="Create">
-          <FormKit type="text" name="name" id="name" label="Name" placeholder="My new task" />
+          <FormKit
+            type="text"
+            name="name"
+            id="name"
+            label="Name"
+            placeholder="My new task"
+            validation="required|len:3,255"
+          />
           <FormKit
             type="select"
             name="profile_id"
@@ -75,6 +82,7 @@ getSelectOptions()
             label="User"
             placeholder="Select a user"
             :options="selectOptions.profiles"
+            validation="required"
           />
           <FormKit
             type="select"
@@ -83,6 +91,7 @@ getSelectOptions()
             label="Porject"
             placeholder="Select a project"
             :options="selectOptions.projects"
+            validation="required"
           />
           <FormKit
             type="textarea"
@@ -90,6 +99,7 @@ getSelectOptions()
             id="description"
             label="Description"
             placeholder="Task description"
+            validation="len:0,500"
           />
         </FormKit>
       </SheetHeader>
