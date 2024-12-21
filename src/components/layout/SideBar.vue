@@ -36,9 +36,21 @@
 </template>
 
 <script setup lang="ts">
+import { useWindowSize } from '@vueuse/core'
+
 defineEmits(['taskClicked'])
 
 const { menuOpen, toggleMenu } = useMenu()
+
+const windowWidth = useWindowSize().width
+
+watchEffect(() => {
+  if (windowWidth.value > 1024) {
+    menuOpen.value = true
+  } else {
+    menuOpen.value = false
+  }
+})
 
 const links = [
   {
