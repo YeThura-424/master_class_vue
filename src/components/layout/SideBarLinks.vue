@@ -4,14 +4,18 @@
       v-if="link.to"
       exactActiveClass="text-primary bg-muted"
       :to="link.to"
-      class="nav-link"
+      :class="['nav-link', menuOpen ? 'justify-normal' : 'justify-center']"
     >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span :class="['text-nowrap', menuOpen ? 'block' : 'hidden']">{{ link.title }}</span>
     </RouterLink>
-    <div v-else class="nav-link cursor-pointer" @click="forwardAction(link.title)">
+    <div
+      v-else
+      :class="['nav-link cursor-pointer', menuOpen ? 'justify-normal' : 'justify-center']"
+      @click="forwardAction(link.title)"
+    >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span :class="['text-nowrap', menuOpen ? 'block' : 'hidden']">{{ link.title }}</span>
     </div>
   </template>
 </template>
@@ -22,6 +26,8 @@ interface LinkProp {
   to: string
   icon: string
 }
+
+const { menuOpen } = useMenu()
 
 defineProps<{
   links: LinkProp[]
@@ -38,6 +44,6 @@ const forwardAction = (payload: string) => {
 
 <style scoped>
 .nav-link {
-  @apply flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary justify-center lg:justify-normal text-muted-foreground;
+  @apply flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary text-muted-foreground;
 }
 </style>

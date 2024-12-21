@@ -5,12 +5,14 @@ import { storeToRefs } from 'pinia'
 const { pageData } = storeToRefs(usePageStore())
 
 const taskSheetOpen = ref(false)
+
+const { menuOpen } = useMenu()
 </script>
 
 <template>
   <SideBar @taskClicked="taskSheetOpen = true" />
   <AppNewTask v-model="taskSheetOpen" />
-  <div class="flex flex-col lg:ml-52 ml-16 transition-[margin]">
+  <div :class="['flex flex-col transition-[margin]', menuOpen ? 'ml-52' : 'ml-24']">
     <TopNavBar />
     <main class="flex flex-col flex-1 gap-4 p-4 lg:gap-6 lg:p-6">
       <div class="flex items-center">
