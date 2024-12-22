@@ -36,11 +36,13 @@
 </template>
 
 <script setup lang="ts">
+import { menuKey } from '@/utils/injectionKeys'
+import type { MenuInjectionOptions } from '@/utils/injectionKeys'
 import { useWindowSize } from '@vueuse/core'
 
 defineEmits(['taskClicked'])
 
-const { menuOpen, toggleMenu } = useMenu()
+const { menuOpen, toggleMenu } = inject(menuKey) as MenuInjectionOptions
 
 const windowWidth = useWindowSize().width
 

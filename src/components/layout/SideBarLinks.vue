@@ -21,13 +21,16 @@
 </template>
 
 <script setup lang="ts">
+import { menuKey } from '@/utils/injectionKeys'
+import type { MenuInjectionOptions } from '@/utils/injectionKeys'
+
 interface LinkProp {
   title: string
   to: string
   icon: string
 }
 
-const { menuOpen } = useMenu()
+const { menuOpen } = inject(menuKey) as MenuInjectionOptions
 
 defineProps<{
   links: LinkProp[]

@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { usePageStore } from '@/stores/page'
+import { menuKey } from '@/utils/injectionKeys'
 import { storeToRefs } from 'pinia'
 
 const { pageData } = storeToRefs(usePageStore())
 
 const taskSheetOpen = ref(false)
 
-const { menuOpen } = useMenu()
+// const { menuOpen } = useMenu()
+
+const menuOpen = ref(false)
+const toggleMenu = () => (menuOpen.value = !menuOpen.value)
+
+provide(menuKey, {
+  menuOpen,
+  toggleMenu
+})
 </script>
 
 <template>
