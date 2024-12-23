@@ -17,6 +17,10 @@ const { getProfileByIds } = useCollabs()
 const collabs = singleProject.value?.collaborators
   ? await getProfileByIds(singleProject.value?.collaborators)
   : []
+
+useMeta({
+  title: `${singleProject.value.name} | Pulse`
+})
 </script>
 
 <template>
