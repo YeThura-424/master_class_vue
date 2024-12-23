@@ -19,6 +19,14 @@ const getTasks = async () => {
 }
 
 await getTasks()
+
+useMeta({
+  title: `${profile?.value?.username ?? 'Profile'} | Pulse`,
+  description: {
+    name: 'description',
+    content: 'Pulse is a project management app which is web based!!'
+  }
+})
 </script>
 
 <template>

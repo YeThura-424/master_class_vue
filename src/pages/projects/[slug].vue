@@ -19,7 +19,7 @@ const collabs = singleProject.value?.collaborators
   : []
 
 useMeta({
-  title: `${singleProject.value.name} | Pulse`
+  title: `${singleProject.value.name ?? 'Project'} | Pulse`
 })
 </script>
 

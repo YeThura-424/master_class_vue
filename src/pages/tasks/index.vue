@@ -16,6 +16,14 @@ const { getGroupedCollabs, groupedCollabs } = useCollabs()
 getGroupedCollabs(tasks.value ?? [])
 
 const columnsWithCollabs = columns(groupedCollabs)
+
+useMeta({
+  title: 'Tasks | Pulse',
+  description: {
+    name: 'description',
+    content: 'Pulse is a project management app which is web based!!'
+  }
+})
 </script>
 
 <template>

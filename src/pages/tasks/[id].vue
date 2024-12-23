@@ -31,6 +31,14 @@ const handelTaskDelete = async () => {
 
   router.push({ name: '/tasks/' })
 }
+
+useMeta({
+  title: `${singleTask?.value.name ?? 'Task'} | Pulse`,
+  description: {
+    name: 'description',
+    content: 'Pulse is a project management app which is web based!!'
+  }
+})
 </script>
 
 <template>
