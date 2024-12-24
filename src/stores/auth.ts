@@ -58,6 +58,7 @@ export const useAuthStore = defineStore('auth-store', () => {
   }
 })
 
+// in order to update in every pages changes that the logged in user is available
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useAuthStore, import.meta.hot))
 }

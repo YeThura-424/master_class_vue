@@ -16,6 +16,9 @@ export const useTaskStore = defineStore('task-store', () => {
     loader: typeof loadedTasks | typeof loadedSingleTask
   }
 
+  /**
+   * for caching data if already fetch and no changes in database
+   */
   const validateCache = ({ ref, query, key, loader }: ValidateCacheParams) => {
     const finalQuery = typeof query === 'function' ? query(key) : query
 
