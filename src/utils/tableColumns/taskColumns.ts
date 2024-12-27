@@ -58,6 +58,7 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<tasksType[0]>[]
     }
   },
   {
+    // render task collab which can be get from the columns
     accessorKey: 'collaborators',
     header: () => h('div', { class: 'text-left' }, 'Collabrators'),
     cell: ({ row }) => {
