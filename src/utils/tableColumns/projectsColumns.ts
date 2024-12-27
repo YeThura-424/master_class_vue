@@ -34,7 +34,7 @@ export const columns = (collabs: Ref<GroupedCollabs>): ColumnDef<projectsType[0]
       )
     }
   },
-  {
+  { // rendering collaborators along with related projects
     accessorKey: 'collaborators',
     header: () => h('div', { class: 'text-left' }, 'Collaborators'),
     cell: ({ row }) => {
